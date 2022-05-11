@@ -15,6 +15,8 @@ public class EnemyData : ScriptableObject
     public int Power => _power;
     public int DefensePower => _defensePower;
     public int Speed => _speed;
+    public int EXP => _exp;
+    public int Gold => _gold;
 
     [SerializeField]
     [Header("Enemyの名前")]
@@ -47,4 +49,16 @@ public class EnemyData : ScriptableObject
     [SerializeField]
     [Header("Enemyの最大MP")]
     int _maxMp;
+
+    [SerializeField]
+    [Header("経験値")]
+    int _exp;
+
+    [SerializeField]
+    [Header("落とす金")]
+    int _gold;
+
+    [SerializeField]
+    [Header("表示するSprite")]
+    Sprite _sp;
 }

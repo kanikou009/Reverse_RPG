@@ -12,6 +12,7 @@ public class PlayerBase : MonoBehaviour, IDamage
     public int Power => _power;
     public int DefensePower => _defensePower;
     public int Speed => _speed;
+    public List<SkillData> Skill => _skillDatas;
 
     [SerializeField]
     PlayerData _playerData;
@@ -24,6 +25,7 @@ public class PlayerBase : MonoBehaviour, IDamage
     int _speed;
     int _maxHp;
     int _maxMp;
+    List<SkillData> _skillDatas;
 
     void Init()
     {
@@ -35,6 +37,7 @@ public class PlayerBase : MonoBehaviour, IDamage
         _speed = _playerData.Speed;
         _maxHp = _playerData.MaxHP;
         _maxMp = _playerData.MaxMP;
+        _skillDatas = _playerData.Skill;
     }
 
     public void ReceiveDamage(int damage)

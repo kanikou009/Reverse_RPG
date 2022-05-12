@@ -7,8 +7,4 @@ public class PlayerBase : MonoBehaviour
     [SerializeField]
     PlayerData _playerData;
 
-    private void Start()
-    {
-
-    }
 }

@@ -17,6 +17,7 @@ public class EnemyData : ScriptableObject
     public int Speed => _speed;
     public int EXP => _exp;
     public int Gold => _gold;
+    public List<SkillData> Skill => _skillData;
 
     [SerializeField]
     [Header("Enemyの名前")]
@@ -61,4 +62,8 @@ public class EnemyData : ScriptableObject
     [SerializeField]
     [Header("表示するSprite")]
     Sprite _sp;
+
+    [SerializeField]
+    [Header("Enemyの持っているスキル")]
+    List<SkillData> _skillData;
 }

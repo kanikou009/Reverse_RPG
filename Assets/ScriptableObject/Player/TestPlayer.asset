@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TestPlayer
   m_EditorClassIdentifier: 
   _name: "\u52C7\u8005"
-  _power: 1
-  _defensePower: 1
+  _power: 0
+  _defensePower: 0
   _speed: 1
   _maxHp: 1
   _maxMp: 1

@@ -33,9 +33,9 @@ public class EnemyBase : MonoBehaviour
 
     void Init()
     {
+        _hp = _enemyData.MaxHP;
+        _mp = _enemyData.MaxMP;
         _name = _enemyData.Name;
-        _hp = _enemyData.HP;
-        _mp = _enemyData.MP;
         _maxHp = _enemyData.MaxHP;
         _maxMp = _enemyData.MaxMP;
         _power = _enemyData.Power;
@@ -45,5 +45,4 @@ public class EnemyBase : MonoBehaviour
         _gold = _enemyData.Gold;
         _skillDatas = _enemyData.Skill;
     }
-
 }

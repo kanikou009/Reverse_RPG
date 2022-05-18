@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc82677cd28f6bb4ab4f1f493e5d66d8, type: 3}
-  m_Name: TestPlayer
+  m_Name: Player15
   m_EditorClassIdentifier: 
-  _name: "\u52C7\u8005"
-  _power: 1
-  _defensePower: 1
-  _speed: 1
-  _maxHp: 1
-  _maxMp: 1
+  _name: 
+  _power: 39
+  _defensePower: 39
+  _speed: 41
+  _maxHp: 42
+  _maxMp: 42
   _skillData:
-  - {fileID: 11400000, guid: 085b9e5842d8f6a48ab058b7508c4a5f, type: 2}
+  - {fileID: 11400000, guid: 8fc11e02e78f678469d11d3e2f47bfec, type: 2}
+  - {fileID: 11400000, guid: ea4ab60633e6b5f4b9be6c3651eb3ed8, type: 2}

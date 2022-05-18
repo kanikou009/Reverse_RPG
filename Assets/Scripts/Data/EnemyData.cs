@@ -8,8 +8,6 @@ using System;
 public class EnemyData : ScriptableObject
 {
     public string Name => _name;
-    public int HP => _hp;
-    public int MP => _mp;
     public int MaxHP => _maxHp;
     public int MaxMP => _maxMp;
     public int Power => _power;
@@ -22,14 +20,6 @@ public class EnemyData : ScriptableObject
     [SerializeField]
     [Header("Enemyの名前")]
     string _name;
-
-    [SerializeField]
-    [Header("EnemyのHP")]
-    int _hp;
-
-    [SerializeField]
-    [Header("EnemyのMP")]
-    int _mp;
 
     [SerializeField]
     [Header("Enemyの攻撃力")]

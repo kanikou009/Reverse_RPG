@@ -9,6 +9,7 @@ public class MagicData : SkillData
 {
     public int NeedMP => _needMp;
     public Attribute MagicAttribute => _attribute;
+    public GameObject Effect => _effect;
 
     [SerializeField]
     [Header("必要なMP")]
@@ -17,6 +18,10 @@ public class MagicData : SkillData
     [SerializeField]
     [Header("属性")]
     Attribute _attribute;
+
+    [SerializeField]
+    [Header("エフェクト")]
+    GameObject _effect;
 
     public enum Attribute
     {

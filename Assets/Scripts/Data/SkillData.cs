@@ -30,7 +30,7 @@ public class SkillData : ScriptableObject
     int _damage;
 
     [SerializeField]
-    [Header("全体かどうか判定するフラグ")]
+    [Header("全体攻撃かどうか判定するフラグ")]
     bool _isWhole;
 
 

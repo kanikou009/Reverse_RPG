@@ -29,9 +29,9 @@ public class PlayerBase : MonoBehaviour, IDamage
 
     void Init()
     {
+        _hp = _playerData.MaxHP;
+        _mp = _playerData.MaxMP;
         _name = _playerData.Name;
-        _hp = _playerData.HP;
-        _mp = _playerData.MP;
         _power = _playerData.Power;
         _defensePower = _playerData.DefensePower;
         _speed = _playerData.Speed;

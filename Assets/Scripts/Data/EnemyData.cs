@@ -8,8 +8,6 @@ using System;
 public class EnemyData : ScriptableObject
 {
     public string Name => _name;
-    public int HP => _hp;
-    public int MP => _mp;
     public int MaxHP => _maxHp;
     public int MaxMP => _maxMp;
     public int Power => _power;
@@ -17,18 +15,11 @@ public class EnemyData : ScriptableObject
     public int Speed => _speed;
     public int EXP => _exp;
     public int Gold => _gold;
+    public List<SkillData> Skill => _skillData;
 
     [SerializeField]
     [Header("Enemyの名前")]
     string _name;
-
-    [SerializeField]
-    [Header("EnemyのHP")]
-    int _hp;
-
-    [SerializeField]
-    [Header("EnemyのMP")]
-    int _mp;
 
     [SerializeField]
     [Header("Enemyの攻撃力")]
@@ -61,4 +52,8 @@ public class EnemyData : ScriptableObject
     [SerializeField]
     [Header("表示するSprite")]
     Sprite _sp;
+
+    [SerializeField]
+    [Header("Enemyの持っているスキル")]
+    List<SkillData> _skillData;
 }

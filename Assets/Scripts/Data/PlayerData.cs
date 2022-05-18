@@ -8,25 +8,16 @@ using System;
 public class PlayerData : ScriptableObject
 {
     public string Name => _name;
-    public int HP => _hp;
-    public int MP => _mp;
     public int MaxHP => _maxHp;
     public int MaxMP => _maxMp;
     public int Power => _power;
     public int DefensePower => _defensePower;
     public int Speed => _speed;
+    public List<SkillData> Skill => _skillData;
 
     [SerializeField]
     [Header("Playerの名前")]
     string _name;
-
-    [SerializeField]
-    [Header("PlayerのHP")]
-    int _hp;
-
-    [SerializeField]
-    [Header("PlayerのMP")]
-    int _mp;
 
     [SerializeField]
     [Header("Playerの攻撃力")]
@@ -47,4 +38,8 @@ public class PlayerData : ScriptableObject
     [SerializeField]
     [Header("Playerの最大MP")]
     int _maxMp;
+
+    [SerializeField]
+    [Header("Playerの持っているスキル")]
+    List<SkillData> _skillData;
 }

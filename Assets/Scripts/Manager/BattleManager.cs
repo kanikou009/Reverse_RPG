@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class BattleManager : SingletonMonoBehaviour<BattleManager>
 {
@@ -41,16 +42,23 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void ActionStart()
     {
-        CompareSpeed(_player, GetEnemies()).ForEach(x =>
+        //CompareSpeed(_player, GetEnemies()).ForEach(x =>
+        //{
+        //    if (x.TryGetComponent(out IDoAction id))
+        //    {
+        //        id.DoAction();
+        //    }
+        //});
+        foreach (var x in CompareSpeed(_player, GetEnemies()))
         {
-            //if(x.TryGetComponent(out IDoAction id))
-            //{
-            //    id.DoAction();
-            //}
-        });
+            if (x.TryGetComponent(out IDoAction id))
+            {
+                id.DoAction();
+            }
+        }
     }
 
-    List<GameObject> CompareSpeed(PlayerBase player, IReadOnlyCollection<GameObject> enemies)
+    IEnumerable<GameObject> CompareSpeed(PlayerBase player, IReadOnlyCollection<GameObject> enemies)
     {
         Dictionary<GameObject, int> gos = new Dictionary<GameObject, int>();
         gos.Add(player.gameObject, player.Speed);

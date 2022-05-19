@@ -42,13 +42,6 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void ActionStart()
     {
-        //CompareSpeed(_player, GetEnemies()).ForEach(x =>
-        //{
-        //    if (x.TryGetComponent(out IDoAction id))
-        //    {
-        //        id.DoAction();
-        //    }
-        //});
         foreach (var x in CompareSpeed(_player, GetEnemies()))
         {
             if (x.TryGetComponent(out IDoAction id))

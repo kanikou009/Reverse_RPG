@@ -41,14 +41,28 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void ActionStart()
     {
-        CompareSpeed(_player, GetEnemies());
-        //_player.Attack();
+        CompareSpeed(_player, GetEnemies()).ForEach(x =>
+        {
+            //if(x.TryGetComponent(out IDoAction id))
+            //{
+            //    id.DoAction();
+            //}
+        });
     }
 
-    IEnumerable<GameObject> CompareSpeed(PlayerBase player, IReadOnlyCollection<GameObject> ir)
+    List<GameObject> CompareSpeed(PlayerBase player, IReadOnlyList<GameObject> enemies)
     {
-
-        return null;
+        Dictionary<GameObject, int> gos = new Dictionary<GameObject, int>();
+        gos.Add(player.gameObject, player.Speed);
+        foreach (var enemy in enemies)
+        {
+            if(enemy.TryGetComponent(out EnemyBase e))
+            {
+                gos.Add(enemy, e.Speed);
+            }
+        }
+        gos.OrderByDescending(x => x.Value);
+        return gos.Keys.ToList();
     }
 
     List<GameObject> GetEnemies()

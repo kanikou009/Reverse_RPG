@@ -26,6 +26,8 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
     List<Button> _buttons;
     PlayerBase _player;
 
+    public event Action OnBattleEnd;
+
     private void Start()
     {
         BattleStart();
@@ -49,7 +51,26 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
                 id.DoAction();
             }
         });
-        
+        TurnEnd();
+    }
+
+    void TurnEnd()
+    {
+        if(_player.HP <= 0)
+        {
+            BattleEnd();
+        }
+        else
+        {
+            OnBattleEnd?.Invoke();
+            OnBattleEnd = null;
+            BattleStart();
+        }
+    }
+
+    void BattleEnd()
+    {
+
     }
 
     List<GameObject> CompareSpeed(PlayerBase player, IReadOnlyCollection<GameObject> enemies)
@@ -96,5 +117,10 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
         {
             _buttons[_buttons.Count - i].gameObject.SetActive(false);//後ろから隠していく
         }
+    }
+
+    public void SelectedAction()
+    {
+        ActionStart();
     }
 }

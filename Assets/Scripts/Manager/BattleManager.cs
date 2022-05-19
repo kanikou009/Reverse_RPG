@@ -50,7 +50,7 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
         });
     }
 
-    List<GameObject> CompareSpeed(PlayerBase player, IReadOnlyList<GameObject> enemies)
+    List<GameObject> CompareSpeed(PlayerBase player, IReadOnlyCollection<GameObject> enemies)
     {
         Dictionary<GameObject, int> gos = new Dictionary<GameObject, int>();
         gos.Add(player.gameObject, player.Speed);

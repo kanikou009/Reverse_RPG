@@ -42,16 +42,17 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void ActionStart()
     {
-        foreach (var x in CompareSpeed(_player, GetEnemies()))
+        CompareSpeed(_player, GetEnemies()).ForEach(x =>
         {
             if (x.TryGetComponent(out IDoAction id))
             {
                 id.DoAction();
             }
-        }
+        });
+        
     }
 
-    IEnumerable<GameObject> CompareSpeed(PlayerBase player, IReadOnlyCollection<GameObject> enemies)
+    List<GameObject> CompareSpeed(PlayerBase player, IReadOnlyCollection<GameObject> enemies)
     {
         Dictionary<GameObject, int> gos = new Dictionary<GameObject, int>();
         gos.Add(player.gameObject, player.Speed);

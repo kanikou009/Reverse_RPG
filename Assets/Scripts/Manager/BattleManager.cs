@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Threading.Tasks;
 
 public class BattleManager : SingletonMonoBehaviour<BattleManager>
 {
@@ -44,11 +45,11 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void ActionStart()
     {
-        CompareSpeed(_player, GetEnemies()).ForEach(x =>
+        CompareSpeed(_player, GetEnemies()).ForEach(async x =>
         {
             if (x.TryGetComponent(out IDoAction id))
             {
-                id.DoAction();
+                await Task.Run( () =>id.DoAction());
             }
         });
         TurnEnd();

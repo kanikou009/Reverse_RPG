@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc82677cd28f6bb4ab4f1f493e5d66d8, type: 3}
+  m_Name: Player12
+  m_EditorClassIdentifier: 
+  _name: 
+  _power: 32
+  _defensePower: 32
+  _speed: 35
+  _maxHp: 36
+  _maxMp: 45
+  _skillData:
+  - {fileID: 11400000, guid: 8fc11e02e78f678469d11d3e2f47bfec, type: 2}

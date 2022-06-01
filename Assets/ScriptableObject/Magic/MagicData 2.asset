@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d679a1b3d712de34695d5993c4597e69, type: 3}
+  m_Name: MagicData 2
+  m_EditorClassIdentifier: 
+  _type: 1
+  _skillName: "\u30A2\u30AF\u30A2\u30DC\u30E0"
+  _information: "\u3067\u304B\u3044\u6C34\u306E\u7403\u4F53\u3092\u76F8\u624B\u306B\u3076\u3064\u3051\u7206\u767A\u3059\u308B"
+  _damage: 35
+  _isWhole: 1
+  _needMp: 30
+  _attribute: 1
+  _effect: {fileID: 0}

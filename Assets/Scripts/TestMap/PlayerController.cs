@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
 
 
+   
     private float activeMoveSpeed;
 
 
@@ -31,22 +32,19 @@ public class PlayerController : MonoBehaviour
 
 
 
-
     public Rigidbody2D rb;
 
-    public static PlayerController instance;
+   
     // Start is called before the first frame update
 
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-    }
+  
     void Start()
     {
+
+        activeMoveSpeed = movespeed;
+
+
 
 
 
@@ -57,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
+        //ノックバック
 
 
 
@@ -82,6 +80,7 @@ public class PlayerController : MonoBehaviour
                     playerAnime.SetFloat("X", -1f);
                     playerAnime.SetFloat("Y", 0);
 
+
                 }
 
             }
@@ -102,6 +101,3 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
-
-
-       

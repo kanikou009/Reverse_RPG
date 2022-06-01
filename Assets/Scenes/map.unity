@@ -72351,7 +72351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd83ab5f670b9e4783e164ae449fda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 5
+  movespeed: 3
   playerAnime: {fileID: 868059610}
   rb: {fileID: 868059611}
 --- !u!1 &945260649

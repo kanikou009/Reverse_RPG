@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class PlayerBase : MonoBehaviour, IDamage, ISelectAction
+public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction
 {
     public string Name => _name;
     public int HP => _hp;
@@ -16,6 +17,8 @@ public class PlayerBase : MonoBehaviour, IDamage, ISelectAction
 
     [SerializeField]
     PlayerData _playerData;
+
+    event Action _action = null;
 
     string _name;
     int _hp;
@@ -42,12 +45,18 @@ public class PlayerBase : MonoBehaviour, IDamage, ISelectAction
 
     public void SelectAction()
     {
-        //BattleViewManager.Instance.SetPanel(true);
-
+        BattleViewManager.Instance.SetPanel(true);
+        BattleViewManager.Instance.SetButtonToSelectSkill(_skillDatas);
     }
 
     public void ReceiveDamage(int damage)
     {
         _hp -= damage;
+    }
+
+    public void DoAction()
+    {
+        _action?.Invoke();
+        _action = null;
     }
 }

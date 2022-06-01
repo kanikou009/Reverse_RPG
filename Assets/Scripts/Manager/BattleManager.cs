@@ -2,29 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using System.Threading.Tasks;
 
 public class BattleManager : SingletonMonoBehaviour<BattleManager>
 {
-    [SerializeField]
-    [Header("表示するパネル")]
-    GameObject _panel;
+    public GameObject[] Enemies => GetFighters<EnemyBase>();
 
-    [SerializeField]
-    [Header("表示するボタン")]
-    Button _button;
-
-    [SerializeField]
-    [Header("Playerのタグ")]
-    string _playerTag;
-
-    [SerializeField]
-    [Header("Enemyのタグ")]
-    string _enemyTag;
-
-    List<Button> _buttons;
     PlayerBase _player;
 
     public event Action OnBattleEnd;
@@ -36,16 +20,19 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void BattleStart()
     {
-        if(GameObject.FindWithTag(_playerTag).TryGetComponent(out PlayerBase playerBase))
+        if(GetFighter<PlayerBase>().TryGetComponent(out PlayerBase playerBase))
         {
-            //playerBase.SelectAction();
             _player = playerBase;
+            if(playerBase.TryGetComponent(out ISelectAction ia))
+            {
+                ia.SelectAction();
+            }
         }
     }
 
     void ActionStart()
     {
-        CompareSpeed(_player, GetEnemies()).ForEach(async x =>
+        CompareSpeed(_player, GetFighters<EnemyBase>()).ForEach(async x =>
         {
             if (x.TryGetComponent(out IDoAction id))
             {
@@ -74,7 +61,7 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     }
 
-    List<GameObject> CompareSpeed(PlayerBase player, IReadOnlyCollection<GameObject> enemies)
+    List<GameObject> CompareSpeed(PlayerBase player, IEnumerable<GameObject> enemies)
     {
         Dictionary<GameObject, int> gos = new Dictionary<GameObject, int>();
         gos.Add(player.gameObject, player.Speed);
@@ -89,35 +76,16 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
         return gos.Keys.ToList();
     }
 
-    List<GameObject> GetEnemies()
+    GameObject GetFighter<T>() where T : MonoBehaviour
     {
-        return GameObject.FindGameObjectsWithTag(_enemyTag).ToList();
+        Type t = typeof(T);
+        return FindObjectOfType(t) as GameObject;
     }
 
-    void ButtonGenerate(int num)//Buttonが足りなくなったら生成する
+    GameObject[] GetFighters<T>() where T : MonoBehaviour
     {
-        for (int i = 0; i < num; i++)
-        {
-            var button = Instantiate(_button);
-            button.transform.position = _panel.transform.position;
-            _buttons.Add(button);
-        }
-    }
-
-    void NotHideButton()//表示されているButtonが足りないが、生成する必要がないとき
-    {
-        for (int i = 0; i < _buttons.Count; i++)
-        {
-            _buttons[i].gameObject.SetActive(true);
-        }
-    }
-
-    void HideButton(int num)//Buttonが余ったら隠す　引数は隠したいButtonの数
-    {
-        for(int i = 0; i < num; i++)
-        {
-            _buttons[_buttons.Count - i].gameObject.SetActive(false);//後ろから隠していく
-        }
+        Type t = typeof(T);
+        return FindObjectsOfType(t) as GameObject[];
     }
 
     public void SelectedAction()

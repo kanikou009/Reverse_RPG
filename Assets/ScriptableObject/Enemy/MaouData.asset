@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee0f2dae301a79045bad49e9666571cd, type: 3}
-  m_Name: TestEnemy
+  m_Name: MaouData
   m_EditorClassIdentifier: 
-  _name: 
-  _power: 0
-  _defensePower: 0
-  _speed: 0
-  _maxHp: 0
-  _maxMp: 0
-  _exp: 0
-  _gold: 0
+  _name: "\u9B54\u738B"
+  _power: 5
+  _defensePower: 4
+  _speed: 6
+  _maxHp: 6
+  _maxMp: 10
+  _exp: 15
+  _gold: 30
   _sp: {fileID: 0}
   _skillData: []

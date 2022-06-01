@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee0f2dae301a79045bad49e9666571cd, type: 3}
-  m_Name: TestEnemy
+  m_Name: DragonData
   m_EditorClassIdentifier: 
-  _name: 
-  _power: 0
-  _defensePower: 0
-  _speed: 0
-  _maxHp: 0
-  _maxMp: 0
-  _exp: 0
-  _gold: 0
+  _name: "\u30C9\u30E9\u30B4\u30F3"
+  _power: 11
+  _defensePower: 8
+  _speed: 16
+  _maxHp: 15
+  _maxMp: 20
+  _exp: 35
+  _gold: 70
   _sp: {fileID: 0}
   _skillData: []

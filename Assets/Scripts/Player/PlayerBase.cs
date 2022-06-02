@@ -14,11 +14,14 @@ public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction
     public int DefensePower => _defensePower;
     public int Speed => _speed;
     public List<SkillData> Skill => _skillDatas;
+    public bool IsAlive => _hp > 0;
 
     [SerializeField]
     PlayerData _playerData;
 
-    event Action _action = null;
+    SkillData _skill;
+
+    public event Action _action = null;
 
     string _name;
     int _hp;
@@ -29,6 +32,12 @@ public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction
     int _maxHp;
     int _maxMp;
     List<SkillData> _skillDatas;
+    GameObject _target;
+
+    private void Awake()
+    {
+        Init();
+    }
 
     void Init()
     {
@@ -52,11 +61,25 @@ public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction
     public void ReceiveDamage(int damage)
     {
         _hp -= damage;
+        Debug.Log(Name + "は" + damage + "ダメージを受けた");
+    }
+
+    public void SetSkill(SkillData skill)
+    {
+        _skill = skill;
+    }
+
+    public void SetTarget(GameObject go)
+    {
+        _target = go;
+        BattleManager.Instance.SelectedAction();
     }
 
     public void DoAction()
     {
-        _action?.Invoke();
-        _action = null;
+        if(_target.TryGetComponent(out IDamage id))
+        {
+            id.ReceiveDamage(_skill.Damage);
+        }
     }
 }

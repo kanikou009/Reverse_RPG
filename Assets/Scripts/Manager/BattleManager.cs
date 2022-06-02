@@ -7,9 +7,19 @@ using System.Threading.Tasks;
 
 public class BattleManager : SingletonMonoBehaviour<BattleManager>
 {
-    public GameObject[] Enemies => GetFighters<EnemyBase>();
+    public GameObject[] Enemies => _enemies;
+    public PlayerBase Player => _player;
+
+    [SerializeField]
+    [Header("Playerのタグ")]
+    string _playerTag = "Player";
+
+    [SerializeField]
+    [Header("Enemyのタグ")]
+    string _enemyTag = "Enemy";
 
     PlayerBase _player;
+    GameObject[] _enemies;
 
     public event Action OnBattleEnd;
 
@@ -18,9 +28,11 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
         BattleStart();
     }
 
-    void BattleStart()
+    async void BattleStart()
     {
-        if(GetFighter<PlayerBase>().TryGetComponent(out PlayerBase playerBase))
+        await Task.Delay(1000);
+        _enemies = GetFighters(_enemyTag).Where(x => x.GetComponent<EnemyBase>().IsAlive).ToArray();
+        if(GetFighter(_playerTag).TryGetComponent(out PlayerBase playerBase))
         {
             _player = playerBase;
             if(playerBase.TryGetComponent(out ISelectAction ia))
@@ -32,11 +44,15 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void ActionStart()
     {
-        CompareSpeed(_player, GetFighters<EnemyBase>()).ForEach(async x =>
+        CompareSpeed(_player, GetFighters(_enemyTag)).ForEach(x =>
         {
+            if(x.TryGetComponent(out EnemyBase enemy) && !enemy.IsAlive)
+            {
+                return;
+            }
             if (x.TryGetComponent(out IDoAction id))
             {
-                await Task.Run( () =>id.DoAction());
+                id.DoAction();
             }
         });
         TurnEnd();
@@ -44,8 +60,14 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void TurnEnd()
     {
-        if(_player.HP <= 0)
+        if(!Player.IsAlive)
         {
+            Debug.Log("PlayerDead");
+            BattleEnd();
+        }
+        else if(Enemies.Where(x => x.GetComponent<EnemyBase>().IsAlive).ToArray().Length <= 0)
+        {
+            Debug.Log("EnemiesDaed");
             BattleEnd();
         }
         else
@@ -58,7 +80,8 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
 
     void BattleEnd()
     {
-
+        Debug.Log("end");
+        BattleViewManager.Instance.SetPanel(false);
     }
 
     List<GameObject> CompareSpeed(PlayerBase player, IEnumerable<GameObject> enemies)
@@ -76,20 +99,19 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
         return gos.Keys.ToList();
     }
 
-    GameObject GetFighter<T>() where T : MonoBehaviour
+    GameObject GetFighter(string tag)
     {
-        Type t = typeof(T);
-        return FindObjectOfType(t) as GameObject;
+        return GameObject.FindGameObjectWithTag(tag);
     }
 
-    GameObject[] GetFighters<T>() where T : MonoBehaviour
+    GameObject[] GetFighters(string tag)
     {
-        Type t = typeof(T);
-        return FindObjectsOfType(t) as GameObject[];
+        return GameObject.FindGameObjectsWithTag(tag);
     }
 
     public void SelectedAction()
     {
+        BattleViewManager.Instance.SetPanel(false);
         ActionStart();
     }
 }

@@ -65,11 +65,7 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
 
     void ButtonTextChenge(Button button, string str)
     {
-        var text = button.GetComponentInChildren<Text>();
-        text.text = str;
-        text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
-        Debug.Log(text.rectTransform.sizeDelta.x + " : " + text.preferredWidth);
-        Debug.LogError(text.rectTransform.sizeDelta.y + " : " + text.preferredHeight);
+        button.GetComponentInChildren<Text>().text = str;
     }
 
     void ButtonGenerate(int num)//Buttonが足りなくなったら生成する

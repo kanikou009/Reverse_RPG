@@ -24,6 +24,7 @@ public class SkillData : ScriptableObject
 
     [SerializeField]
     [Header("技の情報")]
+    [TextArea]
     string _information;
 
     [SerializeField]

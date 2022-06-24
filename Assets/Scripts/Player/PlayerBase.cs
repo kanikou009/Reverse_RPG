@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction
+public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction, IHeelHP, IHeelMP
 {
     public string Name => _name;
     public int HP => _hp;
@@ -15,13 +15,19 @@ public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction
     public int Speed => _speed;
     public List<SkillData> Skill => _skillDatas;
     public bool IsAlive => _hp > 0;
+    public PlayerAction[] PlayerActions => _playerActions;
+    public List<ItemData> Items => _items;
 
     [SerializeField]
     PlayerData _playerData;
 
+    [SerializeField]
+    PlayerAction[] _playerActions;
+
+    List<ItemData> _items;
     SkillData _skill;
 
-    public event Action _action = null;
+    public event Action OnAction = null;
 
     string _name;
     int _hp;
@@ -55,7 +61,7 @@ public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction
     public void SelectAction()
     {
         BattleViewManager.Instance.SetPanel(true);
-        BattleViewManager.Instance.SetButtonToSelectSkill(_skillDatas);
+        BattleViewManager.Instance.SetButtonToSelectAction(_playerActions);
     }
 
     public void ReceiveDamage(int damage)
@@ -81,5 +87,52 @@ public class PlayerBase : MonoBehaviour, IDamage, ISelectAction, IDoAction
         {
             id.ReceiveDamage(_skill.Damage);
         }
+    }
+
+    public void HeelHP(int num)
+    {
+        if(_hp + num > _maxHp)
+        {
+            num = _maxHp - _hp;
+        }
+        _hp += num;
+    }
+
+    public void HeelMP(int num)
+    {
+        if(_mp + num > _maxMp)
+        {
+            num = _maxMp - _mp;
+        }
+        _mp += num;
+    }
+
+    public void UseItem(ItemData item)
+    {
+        item.UseItem(gameObject);
+    }
+}
+
+[Serializable]
+public class PlayerAction
+{
+    public string ActionName => _actionName;
+    public ActionType Type => _actionType;
+
+    [SerializeField]
+    [Header("アクションの名前")]
+    string _actionName;
+
+    [SerializeField]
+    [Header("アクションのタイプ")]
+    ActionType _actionType = ActionType.NomalAttack;
+
+    public enum ActionType
+    {
+        NomalAttack,//通常攻撃
+        Magic,//魔法
+        Skill,//スキル
+        Item,//アイテム
+        Escape//逃げる
     }
 }

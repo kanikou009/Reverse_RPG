@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour, IDamage, IDoAction
+public class EnemyBase : MonoBehaviour, IDamage, IDoAction, IHeelHP
 {
     public string Name => _name;
     public int HP => _hp;
@@ -69,5 +69,14 @@ public class EnemyBase : MonoBehaviour, IDamage, IDoAction
     public void DoAction()
     {
         Attack();
+    }
+
+    public void HeelHP(int num)
+    {
+        if (_hp + num > _maxHp)
+        {
+            num = _maxHp - _hp;
+        }
+        _hp += num;
     }
 }

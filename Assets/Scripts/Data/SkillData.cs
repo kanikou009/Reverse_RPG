@@ -18,7 +18,8 @@ public class SkillData : ScriptableObject
     Type _type;
 
     [SerializeField]
-    [Header("技の名前")]
+    [Header("技の名前(6文字以上になる場合は、改行して下さい)")]
+    [TextArea]
     string _skillName;
 
     [SerializeField]
@@ -37,10 +38,9 @@ public class SkillData : ScriptableObject
     public enum Type
     {
         NomalAttack,//通常攻撃
-        MagicAttack,//魔法攻撃
-        HeelMagic,//回復
-        CureAbnormalConditionMagic,//状態異常回復
-        PoisonMagic,//毒
+        Magic,//魔法
+        Skill,//スキル
+        Item,//アイテム
         RunAway//逃げる
     }
 }

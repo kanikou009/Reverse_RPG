@@ -114,4 +114,9 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
         BattleViewManager.Instance.SetPanel(false);
         ActionStart();
     }
+
+    public void Escape()
+    {
+        BattleEnd();
+    }
 }

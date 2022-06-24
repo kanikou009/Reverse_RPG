@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
 {
@@ -16,6 +17,24 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
 
     List<Button> _buttons = new List<Button>();
 
+    public void SetPanel(bool flag)
+    {
+        _panel.SetActive(flag);
+    }
+
+    public void SetButtonToSelectAction(IReadOnlyList<PlayerAction> playerActions)
+    {
+        ButtonSetting(playerActions.Count);
+        for (int i = 0; i < ButtonSearch(); i++)
+        {
+            var x = i;
+            ButtonTextChenge(_buttons[x], playerActions[x].ActionName);
+            _buttons[x].onClick.AddListener(() =>
+            DirectionSetButton(playerActions[x].Type)
+            );
+        }
+    }
+
     void ButtonSetting(int needButtonNum)
     {
         ResetListenerMethod();
@@ -25,6 +44,7 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
         }
         HideButton();
         NotHideButton(needButtonNum);
+        _buttons[0].Select();
     }
 
     void SetButtonToTargetDecision()
@@ -45,7 +65,11 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
 
     void ButtonTextChenge(Button button, string str)
     {
-        button.GetComponentInChildren<Text>().text = str;
+        var text = button.GetComponentInChildren<Text>();
+        text.text = str;
+        text.rectTransform.sizeDelta = new Vector2(text.preferredWidth, text.preferredHeight);
+        Debug.Log(text.rectTransform.sizeDelta.x + " : " + text.preferredWidth);
+        Debug.LogError(text.rectTransform.sizeDelta.y + " : " + text.preferredHeight);
     }
 
     void ButtonGenerate(int num)//Buttonが足りなくなったら生成する
@@ -82,12 +106,29 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
         }
     }
 
-    public void SetPanel(bool flag)
+    void DirectionSetButton(PlayerAction.ActionType actionType)
     {
-        _panel.SetActive(flag);
+        switch (actionType)
+        {
+            case PlayerAction.ActionType.NomalAttack:
+                SetButtonToSelectNomalAction(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.NomalAttack).ToList());
+                break;
+            case PlayerAction.ActionType.Magic:
+                SetButtonToSelectMagicAction(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.Magic).ToList());
+                break;
+            case PlayerAction.ActionType.Skill:
+                SetButtonToSelectSkill(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.Skill).ToList());
+                break;
+            case PlayerAction.ActionType.Item:
+                SetButtonToSelectItem(BattleManager.Instance.Player.Items);
+                break;
+            case PlayerAction.ActionType.Escape:
+                BattleManager.Instance.Escape();
+                break;
+        }
     }
 
-    public void SetButtonToSelectSkill(IReadOnlyList<SkillData> skills)
+    void SetButtonToSelectSkill(IReadOnlyList<SkillData> skills)
     {
         ButtonSetting(skills.Count);
         for (int i = 0; i < ButtonSearch(); i++)
@@ -98,6 +139,50 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
             {
                 BattleManager.Instance.Player.SetSkill(skills[x]);
                 SetButtonToTargetDecision();
+            });
+        }
+    }
+
+    void SetButtonToSelectNomalAction(IReadOnlyList<SkillData> skills)
+    {
+        ButtonSetting(skills.Count);
+        for (int i = 0; i < ButtonSearch(); i++)
+        {
+            var x = i;
+            ButtonTextChenge(_buttons[x], skills[x].SkillName);
+            _buttons[x].onClick.AddListener(() =>
+            {
+                BattleManager.Instance.Player.SetSkill(skills[x]);
+                SetButtonToTargetDecision();
+            });
+        }
+    }
+
+    void SetButtonToSelectMagicAction(IReadOnlyList<SkillData> skills)
+    {
+        ButtonSetting(skills.Count);
+        for (int i = 0; i < ButtonSearch(); i++)
+        {
+            var x = i;
+            ButtonTextChenge(_buttons[x], skills[x].SkillName);
+            _buttons[x].onClick.AddListener(() =>
+            {
+                BattleManager.Instance.Player.SetSkill(skills[x]);
+                SetButtonToTargetDecision();
+            });
+        }
+    }
+
+    void SetButtonToSelectItem(IReadOnlyList<ItemData> items)
+    {
+        ButtonSetting(items.Count);
+        for (int i = 0; i < ButtonSearch(); i++)
+        {
+            var x = i;
+            ButtonTextChenge(_buttons[x], items[x].Name);
+            _buttons[x].onClick.AddListener(() =>
+            {
+                BattleManager.Instance.Player.UseItem(items[x]);
             });
         }
     }

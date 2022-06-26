@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 public class BattleManager : SingletonMonoBehaviour<BattleManager>
 {
-    public GameObject[] Enemies => _enemies;
     public PlayerBase Player => _player;
+    public GameObject[] Enemies => _enemies;
 
     [SerializeField]
     [Header("Playerのタグ")]

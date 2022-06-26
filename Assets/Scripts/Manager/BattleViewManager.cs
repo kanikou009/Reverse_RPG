@@ -68,7 +68,7 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
         button.GetComponentInChildren<Text>().text = str;
     }
 
-    void ButtonGenerate(int num)//Buttonが足りなくなったら生成する
+    void ButtonGenerate(int num)// Buttonが足りなくなったら生成する
     {
         for (int i = 0; i < num; i++)
         {
@@ -86,7 +86,7 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
         }
     }
 
-    void HideButton()//Buttonを隠す
+    void HideButton()// Buttonを隠す
     {
         for (int i = 0; i < _buttons.Count; i++)
         {
@@ -94,7 +94,7 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
         }
     }
 
-    void ResetListenerMethod()//Buttonに登録されている関数を全て削除する
+    void ResetListenerMethod()// Buttonに登録されている関数を全て削除する
     {
         for (int i = 0; i < _buttons.Count; i++)
         {
@@ -107,13 +107,13 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
         switch (actionType)
         {
             case PlayerAction.ActionType.NomalAttack:
-                SetButtonToSelectNomalAction(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.NomalAttack).ToList());
+                SetButtonToSelectAction(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.NomalAttack).ToList());
                 break;
             case PlayerAction.ActionType.Magic:
-                SetButtonToSelectMagicAction(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.Magic).ToList());
+                SetButtonToSelectAction(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.Magic).ToList());
                 break;
             case PlayerAction.ActionType.Skill:
-                SetButtonToSelectSkill(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.Skill).ToList());
+                SetButtonToSelectAction(BattleManager.Instance.Player.Skill.Where(x => x.SkillType == SkillData.Type.Skill).ToList());
                 break;
             case PlayerAction.ActionType.Item:
                 SetButtonToSelectItem(BattleManager.Instance.Player.Items);
@@ -124,37 +124,7 @@ public class BattleViewManager : SingletonMonoBehaviour<BattleViewManager>
         }
     }
 
-    void SetButtonToSelectSkill(IReadOnlyList<SkillData> skills)
-    {
-        ButtonSetting(skills.Count);
-        for (int i = 0; i < ButtonSearch(); i++)
-        {
-            var x = i;
-            ButtonTextChenge(_buttons[x], skills[x].SkillName);
-            _buttons[x].onClick.AddListener(() =>
-            {
-                BattleManager.Instance.Player.SetSkill(skills[x]);
-                SetButtonToTargetDecision();
-            });
-        }
-    }
-
-    void SetButtonToSelectNomalAction(IReadOnlyList<SkillData> skills)
-    {
-        ButtonSetting(skills.Count);
-        for (int i = 0; i < ButtonSearch(); i++)
-        {
-            var x = i;
-            ButtonTextChenge(_buttons[x], skills[x].SkillName);
-            _buttons[x].onClick.AddListener(() =>
-            {
-                BattleManager.Instance.Player.SetSkill(skills[x]);
-                SetButtonToTargetDecision();
-            });
-        }
-    }
-
-    void SetButtonToSelectMagicAction(IReadOnlyList<SkillData> skills)
+    void SetButtonToSelectAction(IReadOnlyList<SkillData> skills)
     {
         ButtonSetting(skills.Count);
         for (int i = 0; i < ButtonSearch(); i++)

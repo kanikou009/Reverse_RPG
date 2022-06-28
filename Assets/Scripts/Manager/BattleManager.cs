@@ -18,6 +18,10 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
     [Header("Enemyのタグ")]
     string _enemyTag = "Enemy";
 
+    [SerializeField]
+    [Header("マップシーンの名前")]
+    string _mapSceneName;
+
     PlayerBase _player;
     GameObject[] _enemies;
 
@@ -82,6 +86,7 @@ public class BattleManager : SingletonMonoBehaviour<BattleManager>
     {
         Debug.Log("end");
         BattleViewManager.Instance.SetPanel(false);
+        SceneLoder.LoadScene(_mapSceneName);
     }
 
     List<GameObject> CompareSpeed(PlayerBase player, IEnumerable<GameObject> enemies)

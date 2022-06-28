@@ -18,7 +18,7 @@ public class SkillData : ScriptableObject
     Type _type;
 
     [SerializeField]
-    [Header("技の名前(6文字以上になる場合は、改行して下さい)")]
+    [Header("技の名前")]
     [TextArea]
     string _skillName;
 

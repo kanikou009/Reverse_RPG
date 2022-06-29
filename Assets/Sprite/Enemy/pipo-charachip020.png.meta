@@ -1,6 +1,7 @@
 fileFormatVersion: 2
 guid: 93e5fd83ad8e67145aa4d03e37a746c4
 TextureImporter:
+<<<<<<< HEAD
   internalIDToNameTable:
   - first:
       213: -3745542791233892450
@@ -32,6 +33,9 @@ TextureImporter:
   - first:
       213: 2000101028868192413
     second: pipo-charachip020_9
+=======
+  internalIDToNameTable: []
+>>>>>>> develop
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -70,12 +74,20 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
+<<<<<<< HEAD
   spriteMode: 2
+=======
+  spriteMode: 1
+>>>>>>> develop
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
   spritePixelsToUnits: 32
+=======
+  spritePixelsToUnits: 100
+>>>>>>> develop
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -101,6 +113,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<< HEAD
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -338,6 +351,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+=======
+  spriteSheet:
+    serializedVersion: 2
+    sprites: []
+>>>>>>> develop
     outline: []
     physicsShape: []
     bones: []

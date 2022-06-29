@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour
+public class EnemyBase : MonoBehaviour, IDamage, IDoAction, IHeelHP
 {
     public string Name => _name;
     public int HP => _hp;
@@ -15,6 +15,7 @@ public class EnemyBase : MonoBehaviour
     public int EXP => _exp;
     public int Gold => _gold;
     public List<SkillData> Skill => _skillDatas;
+    public bool IsAlive => _hp > 0;
 
     [SerializeField]
     EnemyData _enemyData;
@@ -31,6 +32,11 @@ public class EnemyBase : MonoBehaviour
     int _gold;
     List<SkillData> _skillDatas;
 
+    private void Start()
+    {
+        Init();
+    }
+
     void Init()
     {
         _hp = _enemyData.MaxHP;
@@ -44,5 +50,33 @@ public class EnemyBase : MonoBehaviour
         _exp = _enemyData.EXP;
         _gold = _enemyData.Gold;
         _skillDatas = _enemyData.Skill;
+    }
+
+    void Attack()
+    {
+        if(BattleManager.Instance.Player.TryGetComponent(out IDamage id))
+        {
+            id.ReceiveDamage(_power);
+        }
+    }
+
+    public void ReceiveDamage(int damage)
+    {
+        _hp -= damage;
+        Debug.Log(Name + "は" + damage + "ダメージを受けた");
+    }
+
+    public void DoAction()
+    {
+        Attack();
+    }
+
+    public void HeelHP(int num)
+    {
+        if (_hp + num > _maxHp)
+        {
+            num = _maxHp - _hp;
+        }
+        _hp += num;
     }
 }
